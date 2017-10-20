@@ -31,11 +31,12 @@ enable_testing()
 option(ENABLE_TESTS "Build unit tests" On)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/")
-find_package(HinnantDate REQUIRED)
 
 add_library(sqlpp11 INTERFACE)
 
-target_link_libraries(sqlpp11 INTERFACE HinnantDate::Date)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/deps/date)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/deps/date/include)
+target_link_libraries(sqlpp11 INTERFACE date)
 
 target_include_directories(sqlpp11 INTERFACE
   $<BUILD_INTERFACE:${sqlpp11_SOURCE_DIR}/include>
