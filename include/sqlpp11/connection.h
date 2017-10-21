@@ -27,6 +27,9 @@
 #ifndef SQLPP11_CONNECTION_H
 #define SQLPP11_CONNECTION_H
 
+#include <stdexcept>
+
+
 namespace sqlpp
 {
   struct connection
@@ -35,7 +38,9 @@ namespace sqlpp
 
       enum class connection_backend {POSTGRESQL, SQLITE3};
       // dirty hack - AFAIK virtual template methods would do the thing if they were allowed.
-      virtual connection_backend getRTTI() const = 0;
+      virtual connection_backend getRTTI() const {
+          throw std::runtime_error("");
+      };
   };
 }  // namespace sqlpp
 
