@@ -31,6 +31,11 @@ namespace sqlpp
 {
   struct connection
   {
+      virtual ~connection() noexcept = default;
+
+      enum class connection_backend {POSTGRESQL, SQLITE3};
+      // dirty hack - AFAIK virtual template methods would do the thing if they were allowed.
+      virtual connection_backend getRTTI() const = 0;
   };
 }  // namespace sqlpp
 
